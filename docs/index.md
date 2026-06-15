@@ -1,6 +1,6 @@
 ---
 layout: default
-title: NBA vs WNBA — A Data Story
+title: NBA vs WNBA
 ---
 
 <iframe
