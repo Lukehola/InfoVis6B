@@ -14,16 +14,46 @@ title: NBA vs WNBA
 <script>
   (function () {
     var f = document.getElementById('notebook-frame');
+
+    function measureHeight(doc) {
+      var b = doc.body, h = doc.documentElement;
+      return Math.max(
+        b ? b.scrollHeight  : 0,
+        b ? b.offsetHeight  : 0,
+        h ? h.clientHeight  : 0,
+        h ? h.scrollHeight  : 0,
+        h ? h.offsetHeight  : 0
+      );
+    }
+
     function resize() {
       try {
-        var h = f.contentDocument.body.scrollHeight;
-        if (h && h > 200) f.style.height = (h + 60) + 'px';
-      } catch (e) { /* cross-origin guard, shouldn't fire on same origin */ }
+        var doc = f.contentDocument || f.contentWindow.document;
+        if (!doc) return;
+        var h = measureHeight(doc);
+        if (h && h > 200) f.style.height = (h + 80) + 'px';
+      } catch (e) { /* same-origin so shouldn't fire */ }
     }
-    f.addEventListener('load', resize);
+
+    function attachObserver() {
+      try {
+        var doc = f.contentDocument || f.contentWindow.document;
+        if (!doc || !doc.body) return;
+        resize();
+        if (typeof ResizeObserver !== 'undefined') {
+          new ResizeObserver(resize).observe(doc.body);
+        }
+        // also poll for ~30s in case async chart embeds keep growing the body
+        var ticks = 0;
+        var iv = setInterval(function () {
+          resize();
+          if (++ticks > 40) clearInterval(iv);
+        }, 750);
+      } catch (e) {}
+    }
+
+    f.addEventListener('load', attachObserver);
     window.addEventListener('resize', resize);
-    // re-check periodically — chart rendering can grow the body after onload
-    setInterval(resize, 800);
   })();
 </script>
 
