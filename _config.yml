@@ -30,6 +30,12 @@ sphinx:
     html_show_sourcelink: false
     # Hide the code cells (keep outputs) — same effect as nbconvert --no-input
     nb_remove_code_source: true
+    # Load RequireJS in <head> so the Plotly notebook_connected renderer can
+    # do require.config({paths:{plotly:...}}) and require(["plotly"], ...).
+    # Without this, the three Plotly figures (FGA violin, dumbbell, ORB box)
+    # render as empty grey rectangles.
+    html_js_files:
+      - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js
     # nbsphinx-style mimetype handling for Altair / Plotly outputs
     nb_mime_priority_overrides:
       - ["html", "text/html", 0]
