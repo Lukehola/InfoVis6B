@@ -1,0 +1,35 @@
+title: NBA vs WNBA — A Data Story
+author: Lukehola
+copyright: "2026"
+logo: ""
+only_build_toc_files: true
+
+execute:
+  execute_notebooks: force
+  timeout: 240
+  allow_errors: false
+
+html:
+  use_repository_button: true
+  use_issues_button: false
+  use_edit_page_button: false
+  home_page_in_navbar: true
+  baseurl: "https://lukehola.github.io/InfoVis6B/"
+  favicon: ""
+  google_analytics_id: ""
+
+repository:
+  url: https://github.com/Lukehola/InfoVis6B
+  branch: main
+
+sphinx:
+  config:
+    html_show_copyright: false
+    html_last_updated_fmt: "%b %d, %Y"
+    html_copy_source: false
+    html_show_sourcelink: false
+    # nbsphinx-style mimetype handling for Altair / Plotly outputs
+    nb_mime_priority_overrides:
+      - ["html", "text/html", 0]
+      - ["html", "application/vnd.vegalite.v5+json", 5]
+      - ["html", "application/vnd.plotly.v1+json", 10]
