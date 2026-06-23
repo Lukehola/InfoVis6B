@@ -28,6 +28,8 @@ sphinx:
     html_last_updated_fmt: "%b %d, %Y"
     html_copy_source: false
     html_show_sourcelink: false
+    # Hide the code cells (keep outputs) — same effect as nbconvert --no-input
+    nb_remove_code_source: true
     # nbsphinx-style mimetype handling for Altair / Plotly outputs
     nb_mime_priority_overrides:
       - ["html", "text/html", 0]
